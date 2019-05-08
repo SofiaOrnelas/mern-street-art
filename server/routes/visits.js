@@ -6,11 +6,22 @@ const router = express.Router();
 
 // Route protected for logged in user
 router.get('/my-visits', isLoggedIn, (req, res, next) => {
-  Visit.find({_user: req.user._id}).populate('_user')
+  Visit.find({_user: req.user._id}).populate('_streetArt')
   .then(response => {
     res.json(response);
   })
   // You should use `.populate`
 });
+
+router.post('/visits', isLoggedIn, (req, res, next) => {
+  Visit.create({
+    _user: req.user._id,
+    _streetArt: req.body._streetArt
+
+  })
+  .then(response => {
+    res.json(response);
+  })
+})
 
 module.exports = router;
