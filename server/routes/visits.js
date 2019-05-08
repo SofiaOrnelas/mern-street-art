@@ -24,4 +24,13 @@ router.post('/visits', isLoggedIn, (req, res, next) => {
   })
 })
 
+router.delete('/visits/:visitId', (req, res, next)=>{
+
+  Visit.findByIdAndRemove(req.params.id)
+    .then(() => {
+      res.json({ message: `The visit was sucessfully deleted` });
+    })
+})
+
+
 module.exports = router;
