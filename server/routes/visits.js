@@ -6,9 +6,9 @@ const router = express.Router();
 
 // Route protected for logged in user
 router.get('/my-visits', isLoggedIn, (req, res, next) => {
-  Visit.findById(req.params.id).populate('StreetArt')
+  Visit.find({_user: req.user._id}).populate('_user')
   .then(response => {
-    res.status(200).json(response);
+    res.json(response);
   })
   // You should use `.populate`
 });
